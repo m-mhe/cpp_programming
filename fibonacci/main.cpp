@@ -2,22 +2,24 @@
 
 using namespace std;
 
-double factorial(int value){//It doesn't works with negative integer
+double fibonacci(int value){//Only works with positive integer.
 
     //Base case
-    if(value <= 1){
+    if(value == 0){
+        return 0;
+    }if(value<3){
         return 1;
     }
     //Base case
 
     //Recursion
-    return (value*factorial(value-1));
+    return fibonacci(value -1)+fibonacci(value -2);
     //Recursion
 }
 int main(){
     int input;
     cin>>input;
-    double output = factorial(input);
+    double output = fibonacci(input);
     cout<<"Result:"<<output<<endl;
     return 1;
 }
