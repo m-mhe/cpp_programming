@@ -6,7 +6,7 @@ using namespace std;
 Higher the priority number higher the priority.
 */
 
-int currentTime = 0;
+
 
 
 
@@ -39,12 +39,12 @@ void sortArivalAscending(struct process* processes, int n)
 
 void priorityScheduling(struct process* processes, int n)
 {
-
+    int currentTime = 0;
     //currentTime = processes[0].arivalTime;
     for(int i = 0; i < n; i++)
     {
-        struct process* currentPriority = &processes[0]; //could be i instead of 0.
-        for(int i = 0; i < n; i++)
+        struct process* currentPriority = &processes[i]; //could be i instead of 0.
+        for(int j = 0; j < n; j++)
         {
             if(currentTime >= processes[i].arivalTime && currentPriority->priority < processes[i].priority && processes[i].flag == false)
             {
@@ -56,7 +56,7 @@ void priorityScheduling(struct process* processes, int n)
             currentTime = currentTime + currentPriority->burstTime;
             currentPriority->flag = true;
             currentPriority->completionTime = currentTime;
-            currentPriority->turnAroundTime = currentTime - currentPriority->arivalTime;
+            currentPriority->turnAroundTime = currentPriority->completionTime - currentPriority->arivalTime;
             currentPriority->waitingTime = currentPriority->turnAroundTime - currentPriority->burstTime;
         }
 
@@ -83,6 +83,9 @@ int main()
         cin>>processes[i].priority;
         cin>>processes[i].burstTime;
         processes[i].flag = false;
+        processes[i].completionTime = 0;
+        processes[i].turnAroundTime = 0;
+        processes[i].waitingTime = 0;
     }
 
     sortArivalAscending(processes, processAmount); //Sorting by arrival time
